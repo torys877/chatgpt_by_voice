@@ -1,9 +1,7 @@
 use crate::recorder::Recorder;
 use crate::openai::{self, OpenAiSpeechToTextRes, OpenAiCompletionRes};
 use iced::widget::{button, column, text, row, container, vertical_space, horizontal_space, text_input};
-use iced::{Alignment,alignment,  Element, Sandbox, Settings, Length, Color, theme};
-
-use iced::Theme;
+use iced::{Alignment,alignment,  Element, Sandbox, Settings, Length, Color, theme, Theme};
 
 pub fn render() -> iced::Result {
     App::run(Settings {
@@ -158,10 +156,8 @@ impl<'a> Sandbox for App {
         .spacing(10)
         .into();
 
-
         let chat_content = container(row![
-            chat_elements
-            // text("Record Your Voice").size(24).vertical_alignment(alignment::Vertical::Bottom),
+            chat_elements,
         ])
         .height(Length::Fill)
         .width(Length::Fill)
@@ -174,7 +170,6 @@ impl<'a> Sandbox for App {
                     .on_submit(Message::TextInputSubmit(self.input.clone())),
                 button("Send")
                     .on_press(Message::TextInputSubmit(self.input.clone())),
-
             ]
             .spacing(10)
         );
@@ -189,7 +184,6 @@ impl<'a> Sandbox for App {
         .height(Length::Fill)
         .width(Length::Fill)
         .padding(20)
-        // .align_items(Alignment::Center)
         .into()
     }
 }

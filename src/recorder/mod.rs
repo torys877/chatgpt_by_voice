@@ -1,15 +1,11 @@
 use clap::Parser;
 use cpal::traits::{DeviceTrait, HostTrait, StreamTrait};
-use cpal::{FromSample, Sample};
+use cpal::{FromSample, Sample, SupportedStreamConfig};
+use cpal::platform::{Stream, Device};
 use std::fs::File;
 use std::io::BufWriter;
 use std::sync::{Arc, Mutex};
 use hound::WavWriter;
-use cpal::platform::Stream;
-use cpal::SupportedStreamConfig;
-use cpal::platform::Device;
-
-
 
 #[derive(Parser, Debug)]
 #[command(version, about = "CPAL record_wav example", long_about = None)]
@@ -29,7 +25,6 @@ pub struct Recorder {
 }
 
 impl<'a> Recorder {
-
     pub fn new() -> Result<Self, anyhow::Error> {
         let opt = Opt::parse();
     
@@ -116,7 +111,6 @@ impl<'a> Recorder {
         Ok(())
     }
 }
-
 
 fn sample_format(format: cpal::SampleFormat) -> hound::SampleFormat {
     if format.is_float() {

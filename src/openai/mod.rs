@@ -1,10 +1,8 @@
 use reqwest;
-use reqwest::header;
-use reqwest::header::{HeaderMap, HeaderValue};
-use core::result::Result;
-
-use serde::{Deserialize, Serialize};
+use reqwest::header::{self, HeaderMap, HeaderValue};
 use reqwest::blocking::multipart::Form;
+use core::result::Result;
+use serde::{Deserialize, Serialize};
 use serde_json::{Value, Map, Number};
 
 #[derive(Serialize, Deserialize, Debug)]
@@ -49,11 +47,10 @@ pub struct OpenAiError {
 
 pub fn send_speech_to_text(file_path: String, api_key: String) -> Result<OpenAiSpeechToTextRes, serde_json::Error>
 {
-    let mut headers = HeaderMap::new();
     let api_key_header = format!("Bearer {}", api_key);
+    let mut headers = HeaderMap::new();
     headers.insert(header::AUTHORIZATION, HeaderValue::from_str(api_key_header.as_str()).unwrap());
     headers.insert(header::CONTENT_TYPE, HeaderValue::from_static("multipart/form-data"));
-    
 
     let form = Form::new()
         .text("model", "whisper-1")
@@ -77,8 +74,8 @@ pub fn send_speech_to_text(file_path: String, api_key: String) -> Result<OpenAiS
 pub fn send_completion(question: String, api_key: String) -> Result<OpenAiCompletionRes, serde_json::Error>
 {
     println!("QUESTION ==> {}", question);
+
     let mut body_request = Map::new();
-    
     body_request.insert("model".to_string(), Value::String(String::from(super::OPENAI_MODEL)));
     body_request.insert("prompt".to_string(), Value::String(question));
     body_request.insert("max_tokens".to_string(), Value::Number(Number::from(super::OPENAI_PROMPT_TOKENS_COUNT)));
