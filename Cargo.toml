@@ -1,0 +1,23 @@
+[package]
+name = "chatgpt_voice"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+pasts = "0.7"
+twang = "0.7"
+async_main = { version = "0.4", features = ["pasts"] }
+wavy = "0.9.1"
+fon = "0.5"
+byteorder = "1.2.6"
+hound = "3.4.0"
+cpal="0.15"
+anyhow = "1.0"
+ringbuf = "0.3"
+clap = { version = "4.0", features = ["derive"] }
+iced = "0.9"
+reqwest = { version = "0.11", features = ["blocking", "json", "multipart"]}
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
